@@ -1,0 +1,161 @@
+
+
+    <nav class="nav">
+        <div class="taxt">
+            <p >ติดตามสถานะการแจ้งปัญหา</p>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <div class="items" *ngIf="detail">
+      <div class="container">                      
+        <div class="row">
+            <div class="col">
+                <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
+                    <div class="timeline-step">
+                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2003">
+                            <div class="inner-circle" [ngClass]="{success: detail.created_at}"></div>
+                            <p class="h6 text-muted mb-0 mb-lg-0">รับเรื่อง</p>
+                            <p class="h6 mt-3 mb-1">{{(detail.created_at *1000 | date: 'dd/MM/yyyy HH:mm') }}</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2004">
+                            <div class="inner-circle" [ngClass]="{success: detail.sender_at!=0}"></div>
+                            <p class="h6 text-muted mb-0 mb-lg-0">กำลังดำเนินการ</p>
+                            <p class="h6 mt-3 mb-1">{{detail.sender_at != 0 ? (detail.sender_at*1000 | date: 'dd/MM/yyyy HH:mm' ) :  ''}}</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2005">
+                            <div class="inner-circle" [ngClass]="{success: detail.completed_at!=0}"></div>
+                            <p class="h6 text-muted mb-0 mb-lg-0">เสร็จสิ้น</p>
+                            <p class="h6 mt-3 mb-1">{{detail.completed_at != 0 ? (detail.completed_at*1000 | date: 'dd/MM/yyyy HH:mm' ) :  ''}}</p>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<h2>รายละเอียด</h2>
+<br>
+<br>
+<table class="ttt">
+  <tr>
+    <th></th>
+    <th></th>
+  </tr>
+  <span style="margin-left: 30px;">
+    <tr>
+      <td>รหัสอ้งอิง :</td>
+      <td>{{detail.id}}</td>
+    </tr>
+    <tr>
+      <td>หน่วยงาน :</td>
+      <span *ngFor="let agencies of detail.agencies;let i = index ">
+        <td>{{agencies.name}}</td>
+      </span>
+     
+    </tr>
+    <tr>
+      <td>ช่องทางการแจ้ง :</td>
+      <span *ngFor="let contacts of detail.contacts;let i = index ">
+        <td>{{contacts.name}}</td>
+      </span>
+    </tr>
+    <tr>
+      <td>ผู้แจ้ง :</td>
+      <td>{{detail.informer}}</td>
+    </tr>
+    <tr>
+      <td>ข้อความการแจ้ง :</td>
+      <td>{{detail.informermessage}}</td>
+    </tr>
+    <tr>
+      <td>เวลารับแจ้ง :</td>
+      <td>{{detail.created_at *1000| date: 'dd/MM/yyyy HH:mm'}}</td>
+    </tr>
+    <tr>
+      <td>ระบบ :</td>
+      <span *ngFor="let systems of detail.systems;let i = index ">
+  
+        <td>{{systems.name}}</td>
+  
+        <div *ngIf="i != detail.systems.length - 1 ">,</div>
+      </span>
+    </tr>
+    <tr>
+      <td>ความรุนแรง :</td>
+      <span>
+        <div *ngIf=" detail.levels[0].id == 1" class="badge badge-success">
+          {{( detail.levels[0].name)}} 
+         </div>
+         <div *ngIf=" detail.levels[0].id == 2" class="badge badge-warning">
+          {{( detail.levels[0].name)}} 
+         </div>
+         <div *ngIf=" detail.levels[0].id == 3" class="badge badge-danger">
+          {{( detail.levels[0].name)}} 
+         </div>
+         <div *ngIf=" detail.levels[0].id == 4" class="badge badge-warning">
+          {{( detail.levels[0].name)}}  
+         </div>
+         <div *ngIf=" detail.levels[0].id == 5" class="badge badge-warning">
+          {{( detail.levels[0].name)}}  
+         </div>
+         <div *ngIf=" detail.levels[0].id == 6" class="badge badge-warning">
+          {{( detail.levels[0].name)}}  
+           </div>
+      </span>
+    </tr>
+    <tr>
+      <td>ปัญหาที่พบ :</td>
+      <td>{{detail.problem}}</td>
+    </tr>
+    <tr>
+      <td>ผู้รับผิดชอบ :</td>
+      <span>
+        <div *ngFor="let operators of detail.operators;let i = index ">
+          {{operators.name}} 
+             <div *ngIf="i != detail.operators.length - 1 ">,</div>
+           </div>
+      </span>
+    </tr>
+    <tr>
+      <td>เวลาดำเนินการ :</td>
+      <span *ngIf="detail.sender_at != 0">
+  
+        <td>{{detail.sender_at *1000| date: 'dd/MM/yyyy HH:mm'}}</td>
+      </span>
+    </tr>
+    <tr>
+      <td>สาเหตุของปัญหา :</td>
+      <td>{{detail.casuseproblem}}</td>
+    </tr>
+    <tr>
+      <td>วิธีแก้ปัญหา :</td>
+      <td>{{detail.solution}}</td>
+    </tr>
+    <tr>
+      <td>เวลาเสร็จสิ้น :</td>
+      <span *ngIf="detail.completed_at != 0">
+        <td>{{detail.completed_at *1000| date: 'dd/MM/yyyy HH:mm'}}</td>
+      </span>
+    </tr>
+    <tr>
+      <td>ระยะเวลาดำเนินงาน :</td>
+      <td>{{detail.time}}</td>
+    </tr>
+    <tr>
+      <td>หมายเหตุ :</td>
+      <td>{{detail.suggestion}}</td>
+    </tr>
+  </span>
+  
+  
+</table>
+       
+    </div>
+
+
+     

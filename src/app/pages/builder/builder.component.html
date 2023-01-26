@@ -1,0 +1,78 @@
+<div class="grid p-fluid">
+  <div>
+    <h2 class=" ptax1">นำเข้ารายการปัญหา</h2>
+  </div>
+  <br>
+  <div class="row justify-content-sm-center pt-5 ">
+    <div class=" shadow round pb-3">
+      <form  class="theme-form" [formGroup]="insertproblemDataform" (ngSubmit)="onSubmit()" >
+        <br>
+        <div >
+          <label class="col-12 md:col-4 ptax" for="agency" >หน่วงงาน</label>
+          <select formControlName="agency" [(ngModel)]="insertproblem.agency" type="text" name="agency"  class="form-control" id="agency_id">
+            <option *ngFor="let agency of agency" [value]="agency.id">{{agency.name}}</option>
+
+        </select>
+        </div>
+        <br>
+        <div >
+          <label class="col-form-label  ptax" for="contact">ช่องทางการติดต่อ</label>
+          <select formControlName="contact" [(ngModel)]="insertproblem.contact" type="text" name="contact"  class="form-control" id="contact_id">
+            <option *ngFor="let contact of contact" [value]="contact.id">{{contact.name}}</option>
+            
+        </select>
+        </div>
+        <br>
+        <div >
+          <label class="col-form-label  ptax">ชื่อผู้แจ้ง </label>
+          <input  formControlName="informer" [(ngModel)]="insertproblem.informer" type="text" name="informer"  class="form-control" id="">
+        </div>
+        <br>
+        <div >
+          <label class="col-form-label  ptax" for="informer_message">ข้อความการแจ้ง</label>
+          <textarea formControlName="informermessage" [(ngModel)]="insertproblem.informermessage" class="form-control" type="text" name="informermessage" id="" cols="50" rows="5"></textarea><!--readonly เป็นการกำหนดค่าไม่ให้มีการเปลี่ยนแปลงได้-->
+        </div>
+        <br>
+        <div>
+          <label class="col-form-label  ptax" for="system">ระบบ</label>
+          <select formControlName="system" [(ngModel)]="insertproblem.system" type="text" name="system"  class="form-control" id="system_id">
+          <option *ngFor="let system of systems" [value]="system.id">{{system.name}}</option>
+        </select>
+        </div>
+        <br>
+        <div >
+          <label class="col-form-label  ptax" for="problemtype">รูปแบบปัญหา</label>
+          <select formControlName="problemtype" [(ngModel)]="insertproblem.problemtype" type="text" name="problemtype"  class="form-control" id="problemtype_id">
+          <option *ngFor="let problemtype of problemtype" [value]="problemtype.id">{{problemtype.name}}</option>
+        
+        </select>
+        </div>
+        <br>
+        <div >
+          <label class="col-form-label  ptax" for="level">ความรุนแรง</label>
+          <select formControlName="level" [(ngModel)]="insertproblem.level" type="text" name="level"  class="form-control" id="level_id">
+            <option *ngFor="let level of levels" [value]="level.id">{{level.name}}</option>
+           
+        </select>
+        </div>
+        <br>
+        <div >
+          <label class="col-form-label  ptax" for="problem">ปัญหาที่พบ</label>
+          <textarea formControlName="problem" [(ngModel)]="insertproblem.problem" type="text" name="problem"  class="form-control" id="" cols="50" rows="5"></textarea><!--readonly เป็นการกำหนดค่าไม่ให้มีการเปลี่ยนแปลงได้-->
+        </div>
+        <br>
+        <div >
+          <label class="col-form-label  ptax" >แนบไฟล์</label>
+          <input (change)="fileupload($event)" class="form-control" type="file" accept="image/*" >
+      </div>
+      <br>
+      <div class="items2">
+        <button class="cancel-button" type="reset" value="reset">ยกเลิก</button>
+        <button class="save-button" type="submit" name="btinsert" [disabled]="!insertproblemDataform.valid" >ยืนยัน</button>
+      </div>
+        
+      </form>
+    </div>
+    
+  </div>
+</div>

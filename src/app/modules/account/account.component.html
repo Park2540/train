@@ -1,0 +1,189 @@
+<!-- ..........เป็นส่วนที่เรียกใช้table จากคำสั่ง mat......... -->
+<div >
+  <div class="group">
+    
+    <input placeholder="ค้นหาด้วยรหัสอ้างอิง" (keyup)="applyFilter($event)"  type="search" class="input" #input>
+    <button class="search__button" (click)="addkeyword()">
+      <svg class="search__icon"  aria-hidden="true" viewBox="0 0 24 24">
+          <g>
+              <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+          </g>
+      </svg>
+  </button>
+  
+    
+  </div>
+
+  <br>
+  <br>
+    <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" *ngIf="dataSource">
+        
+      <ng-container matColumnDef="id" >
+        <th  class="taxt" mat-header-cell *matHeaderCellDef> รหัสอ้างอิง </th>
+        <td mat-cell *matCellDef="let PeriodicElement"> {{PeriodicElement.id}} </td>
+      </ng-container>
+  
+    
+      <ng-container matColumnDef="systems">
+        <th class="taxt" mat-header-cell *matHeaderCellDef> ระบบ </th>
+        <td mat-cell *matCellDef="let PeriodicElement"> 
+          <div *ngFor="let system of PeriodicElement.systems;let i = index ">
+            {{system.name}} 
+            <div *ngIf="i != PeriodicElement.systems.length - 1 ">,</div>
+          </div>
+         
+        </td>
+      
+      </ng-container>
+      
+      <ng-container matColumnDef="levels">
+        <th class="taxt" mat-header-cell *matHeaderCellDef> ความเร่งด่วน </th>
+        <!-- <td mat-cell *matCellDef="let PeriodicElement"> {{PeriodicElement.level.name}} </td> -->
+        <td mat-cell *matCellDef="let PeriodicElement"> 
+         
+          <div *ngIf="PeriodicElement.levels[0].id == 1" class="badge badge-success level1">
+            {{(PeriodicElement.levels[0].name)}} 
+          </div>
+          <div *ngIf="PeriodicElement.levels[0].id == 2" class="badge badge-warning level2">
+            {{(PeriodicElement.levels[0].name)}} 
+          </div>
+          <div *ngIf="PeriodicElement.levels[0].id == 3" class="badge badge-danger level3">
+            {{(PeriodicElement.levels[0].name)}} 
+          </div>
+          <div *ngIf="PeriodicElement.levels[0].id == 4" class="badge badge-warning level4">
+            {{(PeriodicElement.levels[0].name)}}  
+          </div>
+          <div *ngIf="PeriodicElement.levels[0].id == 5" class="badge badge-warning">
+          {{(PeriodicElement.levels[0].name)}}  
+          </div>
+          <div *ngIf="PeriodicElement.levels[0].id == 6" class="badge badge-warning">
+            {{(PeriodicElement.levels[0].name)}}  
+            </div>
+
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="problem">
+        <th class="taxt" mat-header-cell *matHeaderCellDef style="width: 200px;"> ปัญหาที่พบ </th>
+        <td mat-cell *matCellDef="let PeriodicElement"> {{PeriodicElement.problem}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="time">
+        <th class="taxt" mat-header-cell *matHeaderCellDef> เวลาที่แจ้ง </th>
+        <td mat-cell *matCellDef="let PeriodicElement"> {{PeriodicElement.created_at *1000 | date: 'dd/MM/yyyy HH:mm'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th class="taxt" mat-header-cell *matHeaderCellDef> สถานะ </th>
+   
+        <td mat-cell *matCellDef="let PeriodicElement"> 
+         
+          <div *ngIf="PeriodicElement.status.id == 1" class="badge badge-primary">
+            {{(PeriodicElement.status.name)}} 
+          </div>
+          <div *ngIf="PeriodicElement.status.id == 2" class="badge badge-warning">
+            {{(PeriodicElement.status.name)}}
+          </div>
+          <div *ngIf="PeriodicElement.status.id == 3" class="badge badge-success">
+            {{(PeriodicElement.status.name)}}
+          </div>
+          <div *ngIf="PeriodicElement.status.id == 4" class="badge badge-danger">
+            {{(PeriodicElement.status.name)}} 
+            
+         </div>
+
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="link">
+        <th class="taxt" mat-header-cell *matHeaderCellDef> ติดตาม </th>
+       
+          <td mat-cell *matCellDef="let PeriodicElement"> 
+            <div >
+              <button class="badge badge-pill badge-secondary" (click)="Copy(PeriodicElement.id)" value="click to copy" >ติดตามสถานะ</button> 
+            </div>
+            </td>
+
+        
+      </ng-container>
+      
+      <ng-container matColumnDef="detail">
+        
+        <th class="taxt" mat-header-cell *matHeaderCellDef> รายละเอียด </th>
+        <td mat-cell *matCellDef="let PeriodicElement"> 
+        <button class="badge badge-pill badge-primary" (click)="getproblemdetailbyid(PeriodicElement.id) ">รายละเอียด</button> </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+<br>
+    <div class="items2">
+      <nav aria-label="Page navigation" class="float-right" [hidden]="pagination.pages==0">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="pagination.page==1">
+            <a class="page-link " aria-label="first" (click)="selectPage(pagination.page=1)">
+              หน้าแรก
+            </a>
+          </li>
+          <li class="page-item" [class.disabled]="pagination.page==1">
+            <a  class="page-link" aria-label="Previous" (click)="selectPage(pagination.page=pagination.page-1)">
+              <span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+            </a>
+          </li>
+      
+          <li class="page-item active" [class.active]="pagination.page == page"  *ngFor="let page of pageItems">
+            <a class="page-link" (click)="selectPage(pagination.page=page)" >{{page}}</a>
+          </li>
+        
+        
+          <li class="page-item" [class.disabled]="pagination.page==pagination.pages">
+            <a class="page-link" aria-label="Next" (click)="selectPage(pagination.page=pagination.page+1)">
+              <span aria-hidden="true"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+            </a>
+          </li>
+          <li class="page-item" [class.disabled]="pagination.page==pagination.pages">
+            <a class="page-link" aria-label="Last" (click)="selectPage(pagination.page=pagination.pages)">
+              หน้าสุดท้าย
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    </div>
+  <script>
+      function myalert() {
+          alert("ยืนยันการทำรายการ");
+      }
+  </script>
+ 
+  <!-- .....................เป็นการเรียกใช้tableในprimeng.............. -->
+ <!-- <div class="card">
+  <p-table [value]="customers" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" 
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Name</th>
+              <th>Country</th>
+              <th>Company</th>
+              <th>Representative</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-customer>
+          <tr>
+              <td>{{customer.name}}</td>
+              <td>{{customer.country.name}}</td>
+              <td>{{customer.company}}</td>
+              <td>{{customer.representative.name}}</td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+          <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+          <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+      </ng-template>
+  </p-table>
+  
+</div> -->

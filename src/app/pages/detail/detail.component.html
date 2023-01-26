@@ -1,0 +1,234 @@
+
+  <div class="items">
+    <h2 class="ptaxt">รายละเอียด</h2>
+<br>
+<table class="ttt">
+  <tr>
+    <th></th>
+    <th></th>
+  </tr>
+  
+    <tr>
+      <td>
+        ติดตามสถานะ :
+      </td>
+      <td>
+        <button class="badge badge-danger" (click)="Copy(detail.id)" value="click to copy" >คัดลอง</button>
+      </td>
+    </tr>
+    <tr>
+      <td>รหัสอ้งอิง :</td>
+      <td>{{detail.id}}</td>
+    </tr>
+    <tr>
+      <td>หน่วยงาน :</td>
+      <span *ngFor="let agencies of detail.agencies;let i = index ">
+        <td>{{agencies.name}}</td>
+      </span>
+     
+    </tr>
+    <tr>
+      <td>ช่องทางการแจ้ง :</td>
+      <span *ngFor="let contacts of detail.contacts;let i = index ">
+        <td>{{contacts.name}}</td>
+      </span>
+    </tr>
+    <tr>
+      <td>ผู้แจ้ง :</td>
+      <td>{{detail.informer}}</td>
+    </tr>
+    <tr>
+      <td>ข้อความการแจ้ง :</td>
+      <td>{{detail.informermessage}}</td>
+    </tr>
+    <tr>
+      <td>เวลารับแจ้ง :</td>
+      <td>{{detail.created_at *1000| date: 'dd/MM/yyyy HH:mm'}}</td>
+    </tr>
+    <tr>
+      <td>ระบบ :</td>
+      <span *ngFor="let systems of detail.systems;let i = index ">
+  
+        <td>{{systems.name}}</td>
+  
+        <div *ngIf="i != detail.systems.length - 1 ">,</div>
+      </span>
+    </tr>
+    <tr>
+      <td>
+        รูปแบบปัญหา :
+      </td>
+      <span *ngFor="let problemtype of detail.problemtype;let i = index ">
+        {{problemtype.name}}
+        <div *ngIf="i != detail.problemtype.length - 1 ">,</div>
+      </span>
+      
+    </tr>
+    <tr>
+      <td>ความรุนแรง :</td>
+      <span>
+        <div *ngIf=" detail.levels[0].id == 1" class="badge badge-success">
+          {{( detail.levels[0].name)}} 
+         </div>
+         <div *ngIf=" detail.levels[0].id == 2" class="badge badge-warning">
+          {{( detail.levels[0].name)}} 
+         </div>
+         <div *ngIf=" detail.levels[0].id == 3" class="badge badge-danger">
+          {{( detail.levels[0].name)}} 
+         </div>
+         <div *ngIf=" detail.levels[0].id == 4" class="badge badge-warning">
+          {{( detail.levels[0].name)}}  
+         </div>
+         <div *ngIf=" detail.levels[0].id == 5" class="badge badge-warning">
+          {{( detail.levels[0].name)}}  
+         </div>
+         <div *ngIf=" detail.levels[0].id == 6" class="badge badge-warning">
+          {{( detail.levels[0].name)}}  
+           </div>
+      </span>
+    </tr>
+    <tr>
+      <td>
+        ปัญหาที่พบ :
+      </td>
+      <td>{{detail.problem}}</td>
+    </tr>
+    <tr>
+      <td>
+        สถานะ :
+      </td>
+      <span>
+        <div *ngIf="detail.status.id == 1" class="badge badge-primary">
+          {{(detail.status.name)}} 
+        </div>
+        <div *ngIf="detail.status.id == 2" class="badge badge-warning">
+          {{(detail.status.name)}}
+        </div>
+        <div *ngIf="detail.status.id == 3" class="badge badge-success">
+          {{(detail.status.name)}}
+        </div>
+        <div *ngIf="detail.status.id == 4" class="badge badge-danger">
+          {{(detail.status.name)}} 
+          
+       </div>
+      </span>
+    </tr>
+    <tr>
+      <td>ผู้รับผิดชอบ :</td>
+      <span>
+        <div *ngFor="let operators of detail.operators;let i = index ">
+          {{operators.name}} 
+             <div *ngIf="i != detail.operators.length - 1 ">,</div>
+           </div>
+      </span>
+    </tr>
+    <tr>
+      <td>เวลาดำเนินการ :</td>
+      <span *ngIf="detail.sender_at != 0">
+  
+        <td>{{detail.sender_at *1000| date: 'dd/MM/yyyy HH:mm'}}</td>
+      </span>
+    </tr>
+    <tr>
+      <td>สาเหตุของปัญหา :</td>
+      <span *ngIf="detail.status.id == 3">
+      
+        <td>{{detail.casuseproblem}}</td>
+      </span>
+    </tr>
+    <tr>
+      <td>วิธีแก้ปัญหา :</td>
+      <span *ngIf="detail.status.id == 3">
+        <td>{{detail.solution}}</td>
+      </span>
+    </tr>
+    <tr>
+      <td>เวลาเสร็จสิ้น :</td>
+      <span *ngIf="detail.status.id == 3">
+        <span *ngIf="detail.completed_at != 0">
+          <td>{{detail.completed_at *1000| date: 'dd/MM/yyyy HH:mm'}}</td>
+        </span>
+      </span>
+    </tr>
+    <tr>
+      <td>ระยะเวลาดำเนินงาน :</td>
+      <span *ngIf="detail.status.id == 3">
+        <td>{{detail.time }}</td>
+      </span>
+    </tr>
+    <tr>
+      <td>หมายเหตุ :</td>
+      <span *ngIf="detail.suggestion !=0 ">
+        <td>{{detail.suggestion}}</td>
+      </span>
+    </tr>
+    <br>
+    <tr>
+      <td>
+        ไฟล์ภาพ :
+      </td>
+    </tr>
+  
+</table>
+      <div style="margin-left: 100px;" >
+        <img src="{{URL + part}}" alt=""height="400px"> 
+      </div>
+<br>
+<br>
+      <div class="items2">
+        
+        <button class="cancel-button" (click)="cancel()">ย้อนกลับ</button>
+        <button class="forword-button" (click)="forward()" name="btinsert" >ส่งต่อ</button>
+        <button class="save-button" (click)="finish()" name="btinsert" >เสร็จสิ้น</button>
+        
+      </div>
+</div>
+<br>
+<br>
+  <div *ngIf="forwardDiv">
+    <form [formGroup]="updetproblemDataform" (ngSubmit)="onSubmitUpdate()">
+      <div>
+        <label class="col-12 md:col-4 ptax" for="users"> เลือกผู้รับผิดชอบ</label>
+    
+        <select formControlName="operator" [(ngModel)]="updetproblem.operator" type="text" name="operators"  class="form-control" id="users_id">
+          <option *ngFor="let users of users" [value]="users.id">{{users.name}}</option>
+        </select>
+      </div>
+      <br>
+      <div class="items2">
+        <button class="cancel-button" (click)="cancelforward()">ยกเลิก</button>
+        <button class="save-button" type="submit" name="btinsert" >ยืนยัน</button>
+        
+      </div>
+    </form>
+  </div>
+
+
+<br>
+<br>
+  <div *ngIf="finishDIV">
+    <form [formGroup]="finishproblemDataform" (ngSubmit)="onSubmitFinish()">
+      <div>
+        <label class="col-12 md:col-4 ptax" for="users"> สาเหตุปัญหา</label>
+        <textarea formControlName="casuseproblem" [(ngModel)]="finishproblem.casuseproblem" type="text" name="casuseproblem"  class="form-control" id="" cols="50" rows="5"></textarea>
+      </div>
+      <br>
+      <div>
+        <label class="col-12 md:col-4 ptax" for="users"> วิธีแก้ปัญหา</label>
+        <textarea formControlName="solution" [(ngModel)]="finishproblem.solution" type="text" name="solution"  class="form-control" id="" cols="50" rows="5"></textarea>
+        
+      </div>
+      <br>
+      <div>
+        <label class="col-12 md:col-4 ptax" for="users"> หมายเหตุ</label>
+        <textarea formControlName="suggestion" [(ngModel)]="finishproblem.suggestion" type="text" name="suggestion"  class="form-control" id="" cols="50" rows="5"></textarea>
+      </div>
+      <br>
+      <div class="items2">
+        <button class="cancel-button" (click)="cancelfinsh()">ยกเลิก</button>
+        <button class="save-button" type="submit" name="btinsert" >ยืนยัน</button>
+        
+      </div>
+    </form>
+  </div>
+
